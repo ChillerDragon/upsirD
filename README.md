@@ -6,6 +6,6 @@ Pronounced **absurd** because this project is not meant to be anything sane or u
 Only linux is supported.
 
 ```
-git clone --recurisve git@github.com:ChillerDragon/upsirD
+git clone --recursive git@github.com:ChillerDragon/upsirD
 make
 ```
