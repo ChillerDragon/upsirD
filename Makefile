@@ -4,9 +4,11 @@ deps/raylib/src/libraylib.a:
 	make -C deps/raylib/src
 
 upsirD: deps/raylib/src/libraylib.a src/main.c
-	clang src/main.c ./deps/raylib/src/libraylib.a -lm -o upsirD
+	clang src/main.c -I./deps/raylib/src/ ./deps/raylib/src/libraylib.a -lm -o upsirD
+	bear -- make
 
 clean:
 	rm upsirD
-	rm deps/raylib/src/libraylib.a
+	cd deps/raylib/src && make clean
+	rm compile_commands.json
 

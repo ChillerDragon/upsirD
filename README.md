@@ -10,3 +10,13 @@ git clone --recursive git@github.com:ChillerDragon/upsirD
 cd upsirD
 make
 ```
+
+## neovim btw
+
+clang deez nuts
+
+```
+sudo apt install bear
+bear -- make
+```
+
