@@ -26,7 +26,10 @@ int main(void)
     {
         // Update
         Vector2 mouse = GetMousePosition();
-        // TraceLog(LOG_INFO, "mouse %f %f", mouse.x, mouse.y);
+        if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT))
+        {
+            TraceLog(LOG_INFO, "mouse %f %f", mouse.x, mouse.y);
+        }
 
         // Draw
         BeginDrawing();
