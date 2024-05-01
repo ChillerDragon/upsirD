@@ -5,7 +5,6 @@ deps/raylib/src/libraylib.a:
 
 upsirD: deps/raylib/src/libraylib.a src/main.c
 	clang src/main.c -I./deps/raylib/src/ ./deps/raylib/src/libraylib.a -lm -o upsirD
-	bear -- make
 
 clean:
 	rm upsirD
