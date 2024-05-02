@@ -1,6 +1,7 @@
 #ifndef SRC_WOLRD_H
 #define SRC_WOLRD_H
 
+#include "global_state.h"
 #include "rect.h"
 #include "user_input.h"
 
@@ -23,7 +24,7 @@ void TickWorld(SWorld *world, SUserInput *inp);
  */
 int AddRectToWorld(SWorld *world, SRect *rect);
 void OnLeftClick(SWorld *world, SUserInput *inp);
-void DrawWorld(SWorld *world);
+void DrawWorld(SWorld *world, SGlobalState *g);
 void ShutdownWorld(SWorld *world);
 
 #endif

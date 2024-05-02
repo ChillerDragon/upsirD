@@ -1,5 +1,7 @@
+#include "global_state.h"
 #include "raylib.h"
 #include "user_input.h"
+#include <string.h>
 
 #include "rect.h"
 
@@ -11,11 +13,27 @@ void FillRectDefaults(SRect *rect)
     rect->h = 100;
     rect->color = GREEN;
     rect->isDragged = false;
+    rect->type = BLOCK_IF;
+    rect->parent = NULL;
+    rect->child = NULL;
+    strncpy(rect->text, "if", sizeof(rect->text));
 }
 
-void DrawRect(struct SRect *rect)
+void DeleteRect(SRect *rect)
+{
+        TraceLog(LOG_INFO, "TODO: cleanup rect stuff");
+}
+
+void DrawRect(struct SRect *rect, SGlobalState *g)
 {
         DrawRectangle(rect->x, rect->y, rect->w, rect->h, rect->color);
+        DrawTextEx(
+            g->font,
+            rect->text,
+            (Vector2){ rect->x, rect->y },
+            (float)g->font.baseSize,
+            2,
+            BLACK);
 }
 
 void TickRect(SRect *rect, SUserInput *inp)

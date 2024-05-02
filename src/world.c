@@ -1,4 +1,5 @@
 #include "world.h"
+#include "global_state.h"
 #include "raylib.h"
 #include "rect.h"
 #include "user_input.h"
@@ -42,7 +43,7 @@ int AddRectToWorld(SWorld *world, SRect *rect)
     return 0;
 }
 
-void DrawWorld(SWorld *world)
+void DrawWorld(SWorld *world, SGlobalState *g)
 {
     for(int i = 0; i < MAX_RECTS; i++)
     {
@@ -50,7 +51,23 @@ void DrawWorld(SWorld *world)
         if(!rect)
              continue;
 
-        DrawRect(rect);
+        DrawRect(rect, g);
+    }
+}
+
+void RemoveRectFromWorld(SWorld *world, SRect *rect)
+{
+    for(int i = 0; i < MAX_RECTS; i++)
+    {
+        SRect *r = world->rects[i];
+        if(!r)
+             continue;
+        if(r != rect)
+            continue;
+
+        DeleteRect(rect);
+        free(r);
+        r = NULL;
     }
 }
 
@@ -71,13 +88,36 @@ void OnLeftClick(SWorld *world, SUserInput *inp)
     {
         SRect *rect = world->rects[i];
         if(!rect)
-             continue;
+            continue;
 
         TraceLog(LOG_INFO, "got rect at %d %d", rect->x, rect->y);
         if(IsPosInRect(inp->mousePos, rect))
         {
             TraceLog(LOG_INFO, " ** clicked rect at %d %d", rect->x, rect->y);
             rect->isDragged ^= 1;
+            if(rect->isDragged)
+            {
+                if(rect->child)
+                    rect->child->isDragged = 1;
+            }
+
+            for(int i = 0; i < MAX_RECTS; i++)
+            {
+                SRect *merge = world->rects[i];
+                if(!merge)
+                    continue;
+                if(merge == rect)
+                    continue;
+
+                if(IsPosInRect(inp->mousePos, merge))
+                {
+                    merge->parent = rect;
+                    rect->child = merge;
+
+                    // can only merge with one other rect
+                    break;
+                }
+            }
 
             // can only drag one rect at a time
             break;

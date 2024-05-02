@@ -19,7 +19,7 @@ int main(void)
 
     struct SGlobalState g;
     // g.font = LoadFont("data/font.png");
-    g.font = LoadFontEx("data/knowyour.ttf", 32, 0, 250);
+    g.font = LoadFontEx("data/CourierPrimeCode/CourierPrimeCode.ttf", 32, 0, 250);
 
     SWorld world;
     InitWorld(&world);
@@ -52,7 +52,7 @@ int main(void)
         ClearBackground(RAYWHITE);
         Text(&g, "foo", (Vector2){ 20.0f, 100.0f });
 
-        DrawWorld(&world);
+        DrawWorld(&world, &g);
 
         EndDrawing();
     }
