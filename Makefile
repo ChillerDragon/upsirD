@@ -1,10 +1,13 @@
 .DEFAULT_GOAL := upsirD
 
+SOURCES := $(wildcard src/*.c)
+HEADERS := $(wildcard src/*.h)
+
 deps/raylib/src/libraylib.a:
 	make -C deps/raylib/src
 
-upsirD: deps/raylib/src/libraylib.a src/main.c
-	clang src/*.c -I./deps/raylib/src/ ./deps/raylib/src/libraylib.a -lm -o upsirD
+upsirD: $(SOURCES) $(HEADERS) deps/raylib/src/libraylib.a 
+	clang $(SOURCES) -I./deps/raylib/src/ ./deps/raylib/src/libraylib.a -lm -o upsirD
 
 clean:
 	rm upsirD

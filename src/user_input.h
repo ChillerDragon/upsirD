@@ -5,6 +5,7 @@
 
 struct SUserInput {
     Vector2 mousePos;
+    int leftClicked;
 } typedef SUserInput;
 
 #endif

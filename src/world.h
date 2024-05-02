@@ -12,6 +12,7 @@ struct SWorld {
 
 void InitWorld(SWorld *world);
 void TickWorld(SWorld *world, SUserInput *inp);
+void OnLeftClick(SWorld *world, SUserInput *inp);
 
 #endif
 

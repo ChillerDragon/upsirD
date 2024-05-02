@@ -41,6 +41,12 @@ int main(void)
         // Update
         SUserInput inp;
         inp.mousePos = GetMousePosition();
+        inp.leftClicked = 0;
+        if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT))
+        {
+            inp.leftClicked = 1;
+            OnLeftClick(&world, &inp);
+        }
         TickWorld(&world, &inp);
 
         // Draw
