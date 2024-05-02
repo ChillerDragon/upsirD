@@ -4,7 +4,7 @@ deps/raylib/src/libraylib.a:
 	make -C deps/raylib/src
 
 upsirD: deps/raylib/src/libraylib.a src/main.c
-	clang src/main.c -I./deps/raylib/src/ ./deps/raylib/src/libraylib.a -lm -o upsirD
+	clang src/*.c -I./deps/raylib/src/ ./deps/raylib/src/libraylib.a -lm -o upsirD
 
 clean:
 	rm upsirD
