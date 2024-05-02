@@ -15,6 +15,7 @@ struct SRect
 } typedef SRect;
 
 void FillRectDefaults(SRect *rect);
+void DrawRect(struct SRect *rect);
 void TickRect(SRect *rect, SUserInput *inp);
 
 /* IsPosInRect

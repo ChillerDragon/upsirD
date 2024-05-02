@@ -2,6 +2,8 @@
 #include "raylib.h"
 #include "rect.h"
 #include "user_input.h"
+#include <stdlib.h>
+#include <string.h>
 
 #ifndef NULL
 #define NULL 0
@@ -9,6 +11,7 @@
 
 void InitWorld(SWorld *world)
 {
+    world->numRects = 0;
     for(int i = 0; i < MAX_RECTS; i++)
     {
         world->rects[i] = NULL;
@@ -22,6 +25,42 @@ void TickWorld(SWorld *world, SUserInput *inp)
         if(!world->rects[i])
             continue;
         TickRect(world->rects[i], inp);
+    }
+}
+
+int AddRectToWorld(SWorld *world, SRect *rect)
+{
+    if(world->numRects >= MAX_RECTS)
+        return 1;
+
+    SRect *allocRect = malloc(sizeof(SRect));
+    memcpy(allocRect, rect, sizeof(SRect));
+
+    world->rects[world->numRects] = allocRect;
+    world->numRects++;
+
+    return 0;
+}
+
+void DrawWorld(SWorld *world)
+{
+    for(int i = 0; i < MAX_RECTS; i++)
+    {
+        SRect *rect = world->rects[i];
+        if(!rect)
+             continue;
+
+        DrawRect(rect);
+    }
+}
+
+void ShutdownWorld(SWorld *world)
+{
+    for(int i = 0; i < MAX_RECTS; i++)
+    {
+        if(!world->rects[i])
+            continue;
+        free(world->rects[i]);
     }
 }
 

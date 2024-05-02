@@ -10,11 +10,6 @@ void Text(SGlobalState *g, const char *text, Vector2 position)
         DrawTextEx(g->font, "foo", (Vector2){ 20.0f, 100.0f }, (float)g->font.baseSize * 4, 2, LIME);
 }
 
-void DrawRect(struct SRect *rect)
-{
-        DrawRectangle(rect->x, rect->y, rect->w, rect->h, rect->color);
-}
-
 int main(void)
 {
     const int screenWidth = 800;
@@ -29,9 +24,12 @@ int main(void)
     SWorld world;
     InitWorld(&world);
 
-    SRect rect;
-    FillRectDefaults(&rect);
-    world.rects[0] = &rect;
+    for(int i = 0; i < 3; i++)
+    {
+        SRect rect;
+        FillRectDefaults(&rect);
+        AddRectToWorld(&world, &rect);
+    }
 
     while (!WindowShouldClose())
     {
@@ -54,11 +52,12 @@ int main(void)
         ClearBackground(RAYWHITE);
         Text(&g, "foo", (Vector2){ 20.0f, 100.0f });
 
-        DrawRect(&rect);
+        DrawWorld(&world);
 
         EndDrawing();
     }
 
+    ShutdownWorld(&world);
     UnloadFont(g.font);
     CloseWindow();
     return 0;

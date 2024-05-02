@@ -13,6 +13,11 @@ void FillRectDefaults(SRect *rect)
     rect->isDragged = false;
 }
 
+void DrawRect(struct SRect *rect)
+{
+        DrawRectangle(rect->x, rect->y, rect->w, rect->h, rect->color);
+}
+
 void TickRect(SRect *rect, SUserInput *inp)
 {
     if(rect->isDragged)
